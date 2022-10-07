@@ -20,6 +20,19 @@
     "test:debug": "node --inspect-brk -r tsconfig-paths/register -r ts-node/register node_modules/.bin/jest --runInBand",
     "test:e2e": "jest --config ./test/jest-e2e.json"
   },
+  "husky": {
+    "hooks": {
+      "pre-commit": "lint-staged"
+    }
+  },
+  "lint-staged": {
+    "*.js": [
+      "yarn lint",
+      "yarn format",
+      "git add"
+    ]
+  },
+
   "dependencies": {
     "@hapi/joi": "^17.1.1",
     "@nestjs/bull": "^0.6.1",
