@@ -32,7 +32,6 @@
       "git add"
     ]
   },
-
   "dependencies": {
     "@hapi/joi": "^17.1.1",
     "@nestjs/bull": "^0.6.1",
@@ -52,6 +51,7 @@
     "dotenv": "^16.0.3",
     "express-rate-limit": "^6.6.0",
     "helmet": "^6.0.0",
+    "husky": "^8.0.1",
     "i": "^0.3.7",
     "moment": "^2.29.4",
     "mongoose": "^6.6.4",

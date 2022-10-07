@@ -1,4 +1,4 @@
-import { IsOptional, Length } from 'class-validator';
+import { IsOptional } from 'class-validator';
 
 export class UpdateUserDto {
   @IsOptional()
