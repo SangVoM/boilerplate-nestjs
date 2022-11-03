@@ -21,15 +21,15 @@ export class AuthController {
 
   @Post('login')
   async login(@Body() payload: LoginPayloadDto) {
-    const result = await this.authService.login(payload);
-    return {
-      result: { token: result.token, refreshToken: result.refreshToken },
-    };
+    // const result = await this.authService.login(payload);
+    // return {
+    //   result: { token: result.token, refreshToken: result.refreshToken },
+    // };
   }
 
   @Post('register')
   async register(@Body() payload: RegisterPayloadDto) {
-    const result = await this.authService.register(payload);
-    return { result: { token: result } };
+    // const result = await this.authService.register(payload);
+    // return { result: { token: result } };
   }
 }

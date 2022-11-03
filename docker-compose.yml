@@ -13,16 +13,17 @@ services:
       - REDIS_REPLICATION_MODE=master
     networks:
       - default
-  mongodb:
-    image: mongo:latest
-    container_name: mongodb_latest
+  postgresql:
+    image: postgres:latest
+    container_name: postgresql_latest
     ports:
-      - "${DB_PORT}:${DB_PORT}"
+      - "${TYPEORM_PORT}:${TYPEORM_PORT}"
     volumes:
-      - ./volumes/mongo/:/data/db
+      - ./volumes/postgres:/var/lib/postgresql/data
     environment:
-      - MONGO_INITDB_ROOT_USERNAME=${DB_USERNAME}
-      - MONGO_INITDB_ROOT_PASSWORD=${DB_PASSWORD}
+      - POSTGRES_USER=${TYPEORM_USERNAME}
+      - POSTGRES_PASSWORD=${TYPEORM_PASSWORD}
+      - POSTGRES_DB=${TYPEORM_DATABASE}
     networks:
       - default
   api-service:

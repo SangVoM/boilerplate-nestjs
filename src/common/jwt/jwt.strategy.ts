@@ -18,15 +18,15 @@ export class JwtStrategy extends PassportStrategy(Strategy) {
   }
 
   async validate(payload: any, done: VerifiedCallback) {
-    let user: any = null;
-    if (payload?.id) {
-      user = await this.usersService.findOne(payload?.id);
-    }
-
-    if (!user) {
-      return done(new UnauthorizedException('unauthorized-access'), false);
-    }
-
-    return done(null, user);
+    // let user: any = null;
+    // if (payload?.id) {
+    //   user = await this.usersService.findOne(payload?.id);
+    // }
+    //
+    // if (!user) {
+    //   return done(new UnauthorizedException('unauthorized-access'), false);
+    // }
+    //
+    // return done(null, user);
   }
 }

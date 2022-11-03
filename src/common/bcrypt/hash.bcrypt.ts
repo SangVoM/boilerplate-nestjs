@@ -4,7 +4,6 @@ import { createCipheriv, createDecipheriv } from 'crypto';
 import { hashSync, compareSync } from 'bcryptjs';
 import { ConfigService } from '@nestjs/config';
 import mongoose from 'mongoose';
-import { User } from '../../api/users/entities/user.entity';
 import { UsersService } from '../../api/users/users.service';
 
 @Injectable()
@@ -107,8 +106,8 @@ export class HashBcrypt {
     }
   }
 
-  public async handleSaveUserRefreshToken(user: User, refreshToken: string) {
-    user.refreshToken = this.hashPassword(refreshToken);
-    await this.usersService.update(user._id, { refreshToken });
+  public async handleSaveUserRefreshToken(user: any, refreshToken: string) {
+    // user.refreshToken = this.hashPassword(refreshToken);
+    // await this.usersService.update(user._id, { refreshToken });
   }
 }
