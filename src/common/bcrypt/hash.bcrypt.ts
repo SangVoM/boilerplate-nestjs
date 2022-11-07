@@ -106,7 +106,7 @@ export class HashBcrypt {
   }
 
   public async handleSaveUserRefreshToken(user: any, refreshToken: string) {
-    // user.refreshToken = this.hashPassword(refreshToken);
-    // await this.usersService.update(user._id, { refreshToken });
+    user.refreshToken = this.hashPassword(refreshToken);
+    await this.usersService.update(user._id, { refreshToken });
   }
 }
