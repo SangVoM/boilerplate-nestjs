@@ -24,6 +24,11 @@
 
 # Boilerplate NestJS Docker
 ## Usage example
+
+### Information: Project is divided into 2 branches
+* Main: Use noSql database with connect is mongodb
+* TypeOrm: Use sql database with connect is typeOrm
+
 ### Step 1: Init project
 * Build docker
 ```
@@ -47,7 +52,7 @@ docker-compose up -d
 docker logs --tail 1000 api-service 
 ```
 ### Connect database use DataGrip
-* use dataGrip
+* use dataGrip with mongoDb
 ```
 Host: localhost
 Port: 27017
@@ -55,4 +60,14 @@ User: root
 password: root
 Database: service
 URL: mongodb://xxxx:xxx/xxx?authSource=admin
+```
+
+* use dataGrip with TypeOrm
+```
+Host: localhost
+Port: 5432
+User: root
+password: root
+Database: boilerplate
+URL: jdbc:postgresql://localhost:5432/boilerplate
 ```
