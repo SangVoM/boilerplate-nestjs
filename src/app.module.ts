@@ -2,12 +2,12 @@ import { CacheModule, Module } from '@nestjs/common';
 import { ConfigModule, ConfigService } from '@nestjs/config';
 import config from '@common/config';
 import { TypeOrmModule } from '@nestjs/typeorm';
-import { UsersModule } from '@api/users/users.module';
+import { UserModule } from '@api/user/user.module';
 import { AuthModule } from './auth/auth.module';
 import { APP_FILTER } from '@nestjs/core';
 import { AppExceptionsFilter } from '@common/filter/app-exceptions.filter';
 import * as redisStore from 'cache-manager-redis-store';
-import { TypeOrmConfigService } from '@common/config/database.config';
+import { join } from 'path';
 
 @Module({
   imports: [
@@ -27,9 +27,24 @@ import { TypeOrmConfigService } from '@common/config/database.config';
     }),
     TypeOrmModule.forRootAsync({
       inject: [ConfigService],
-      useClass: TypeOrmConfigService,
+      useFactory: (configService: ConfigService) => ({
+        type: configService.get<any>('DB.DB_CONNECTION'),
+        host: configService.get<string>('DB.DB_HOST'),
+        port: configService.get<number>('DB.DB_PORT'),
+        username: configService.get<string>('DB.DB_USERNAME'),
+        password: configService.get<string>('DB.DB_PASSWORD'),
+        database: configService.get<string>('DB.DB_DATABASE'),
+        schema: configService.get<string>('DB.DB_SCHEMA'),
+        entities: [
+          join(__dirname, '**/entities/*{.entity.ts,.entity.js}'),
+          join(__dirname, '**/data/*{.entity.ts,.entity.js}'),
+        ],
+        logging: configService.get<boolean>('DB.DB_LOGGING'),
+        synchronize: configService.get<string>('DB.DB_SYNCHRONIZE') === 'true',
+        cache: true,
+      }),
     }),
-    UsersModule,
+    UserModule,
     AuthModule,
   ],
   controllers: [],

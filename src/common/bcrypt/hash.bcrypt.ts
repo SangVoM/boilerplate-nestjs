@@ -3,8 +3,7 @@ import { sign, verify } from 'jsonwebtoken';
 import { createCipheriv, createDecipheriv } from 'crypto';
 import { hashSync, compareSync } from 'bcryptjs';
 import { ConfigService } from '@nestjs/config';
-import mongoose from 'mongoose';
-import { UsersService } from '../../api/users/users.service';
+import { UserService } from '@api/user/user.service';
 
 @Injectable()
 export class HashBcrypt {
@@ -18,7 +17,7 @@ export class HashBcrypt {
 
   constructor(
     readonly configService: ConfigService,
-    readonly usersService: UsersService,
+    readonly usersService: UserService,
   ) {
     this.expirationTime = this.configService.get<string>('EXPIRATION_TIME');
     this.expirationTimeRefreshToken = this.configService.get<string>(
@@ -44,7 +43,7 @@ export class HashBcrypt {
     }
   }
 
-  createTokenAndRefreshToken(idCustomer: mongoose.Types.ObjectId) {
+  createTokenAndRefreshToken(idCustomer: number) {
     const token = this.signPayload({ id: idCustomer }, this.expirationTime);
     const refreshToken = this.signPayload(
       { id: idCustomer },
