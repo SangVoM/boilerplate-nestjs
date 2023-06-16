@@ -5,7 +5,7 @@ services:
     container_name: redis_alpine
     command: redis-server --requirepass ${REDIS_PASSWORD}
     ports:
-      - "${REDIS_PORT}:${REDIS_PORT}"
+      - "${REDIS_PORT}:6379"
     volumes:
       - ./volumes/redis/data:/var/lib/redis
       - ./volumes/redis/conf:/usr/local/etc/redis/redis.conf
@@ -13,11 +13,12 @@ services:
       - REDIS_REPLICATION_MODE=master
     networks:
       - default
+
   mongodb:
     image: mongo:latest
     container_name: mongodb_latest
     ports:
-      - "${DB_PORT}:${DB_PORT}"
+      - "${DB_PORT}:27017" #neu muon connect localhost thi ${DB_PORT}:27017
     volumes:
       - ./volumes/mongo/:/data/db
     environment:
@@ -25,11 +26,12 @@ services:
       - MONGO_INITDB_ROOT_PASSWORD=${DB_PASSWORD}
     networks:
       - default
+
   api-service:
     image: ${APP_NAME}:1.0.0
     container_name: ${APP_NAME}
     ports:
-      - "${APP_PORT}:${APP_PORT}"
+      - "${APP_PORT}:3005"
     build:
       context: .
       dockerfile: Dockerfile
@@ -42,6 +44,7 @@ services:
       - ${LINK_MONGODB}:${LINK_MONGODB}
     networks:
       - default
+
 networks:
   default:
     external: true
